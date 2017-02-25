@@ -1,4 +1,4 @@
-package org.letsdev.liamnguyen.api_weshare.service;
+package org.letsdev.liamnguyen.api_weshare.Services;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

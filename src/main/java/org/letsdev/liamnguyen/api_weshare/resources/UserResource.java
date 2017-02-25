@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.letsdev.liamnguyen.api_weshare.Dto.Users;
 import org.letsdev.liamnguyen.api_weshare.Helper.Helper;
-import org.letsdev.liamnguyen.api_weshare.service.UserService;
+import org.letsdev.liamnguyen.api_weshare.Services.UserService;
 
 @Path("user")
 @Consumes(MediaType.APPLICATION_JSON)

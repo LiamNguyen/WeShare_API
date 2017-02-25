@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.letsdev.liamnguyen.api_weshare.Dto.Profiles;
-import org.letsdev.liamnguyen.api_weshare.service.ProfileService;
+import org.letsdev.liamnguyen.api_weshare.Services.ProfileService;
 
 @Path("user/profile")
 @Produces(MediaType.APPLICATION_JSON)
