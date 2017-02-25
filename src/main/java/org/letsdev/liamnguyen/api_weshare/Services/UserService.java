@@ -6,16 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.letsdev.liamnguyen.api_weshare.Dao.ProfilesDAO;
 import org.letsdev.liamnguyen.api_weshare.Dao.UsersDAO;
 import org.letsdev.liamnguyen.api_weshare.DatabaseManager.Database;
-import org.letsdev.liamnguyen.api_weshare.Dto.Profiles;
 import org.letsdev.liamnguyen.api_weshare.Dto.Users;
+import org.letsdev.liamnguyen.api_weshare.Helper.Helper;
 
 public class UserService {
 	private HashMap<String, Users> users = Database.getUsers();
-	private HashMap<String, Profiles> profile = Database.getProfile();
 
 	private UsersDAO userDao = new UsersDAO();
+	private ProfilesDAO profileDao = new ProfilesDAO();
+	
 	public UserService() {
 	
 	}
@@ -35,39 +37,37 @@ public class UserService {
 			return null;
 		}
 		createCredential(credential);
-		createProfile(credential);
+		Users insertedUser = Helper.findUserFromUserLoginId(credential.getUserLoginId());
+		createProfile(insertedUser);
 		
 		return credential;
 	}
 	
 	public Users login(Users credential) {
-		String loginId = credential.getUserLoginId();
-		String password = credential.getUserPassword();
+		String userLoginId = credential.getUserLoginId();
+		String userPassword = credential.getUserPassword();
 		
-		if (userIsValid(loginId, password)) {
-			credential.setSessionToken(tokenGenerator());
-			return this.users.get(loginId);
+		if (userIsValid(userLoginId, userPassword)) {
+			this.userDao.updateToken(userLoginId, tokenGenerator());
+			this.profileDao.selectProfile(userLoginId);
+			return this.users.get(userLoginId);
 		} else {
 			return null;
 		}
 	}
 	
 	public void deleteUser(String userLoginId) {
-		Users user = this.users.get(userLoginId);
-		this.users.put(userLoginId, user);
+		this.userDao.deleteUser(userLoginId);
+		this.users.remove(userLoginId);
 	}
 	
-	private void createCredential(Users credential) {
-		String id = Integer.toString(this.users.size() + 1);
-		credential.setUserId(id);
-		credential.setSessionToken(tokenGenerator());
-		this.users.put(credential.getUserLoginId(), credential);
+	private void createCredential(Users user) {
+		user.setSessionToken(tokenGenerator());
+		this.userDao.insertUser(user);
 	}
 	
-	private void createProfile(Users credential) {
-		Profiles newUserProfile = new Profiles();
-		newUserProfile.setUserID(credential.getUserId());
-		this.profile.put(credential.getUserLoginId(), newUserProfile);
+	private void createProfile(Users user) { 
+		this.profileDao.insertProfile(user);
 	}
 	
 	private Boolean userIsValid(String userLoginId, String userPassword) {

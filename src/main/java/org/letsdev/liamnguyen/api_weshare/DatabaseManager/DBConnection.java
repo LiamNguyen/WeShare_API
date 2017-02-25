@@ -39,4 +39,14 @@ public class DBConnection {
 		
 		return returnResultSet;
 	}
+	
+	public void executeQuery(String sql) {
+		
+		try {
+			PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

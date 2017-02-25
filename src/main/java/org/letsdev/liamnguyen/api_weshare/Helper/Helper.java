@@ -63,6 +63,17 @@ public class Helper {
 		return returnUser;
 	}
 	
+	public static Users findUserFromUserLoginId(String userLoginId) {
+		Users returnUser = new Users();
+		List<Users> allUser = new ArrayList<Users>(users.values());
+		for (Users user: allUser) {
+			if (user.getUserLoginId().equals(userLoginId)) {
+				returnUser = user;
+			}
+		}
+		return returnUser;
+	}
+	
 	public static Date convertStrToDate(String dateStr) {
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss"); 
 	    Date convertedDate = null;
@@ -72,6 +83,13 @@ public class Helper {
 	        e.printStackTrace();
 	    }
 	    return convertedDate;
+	}
+	
+	public static String getCurrentDate() {
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss"); 
+	    String returnDate = null;
+    	returnDate = df.format(new Date());
+	    return returnDate;
 	}
 	
 	public static void print(String msg) {

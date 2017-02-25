@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.letsdev.liamnguyen.api_weshare.Dto.Users;
 import org.letsdev.liamnguyen.api_weshare.Helper.Helper;
@@ -35,20 +37,21 @@ public class UserResource {
 	
 	@POST
 	@Path("/register")
-	public Users register(Users credential) {
-		return this.authenticationService.register(credential);
+	public Users register(Users user) {
+		return this.authenticationService.register(user);
 	}
 	
 	@POST
 	@Path("/login")
-	public String login(Users credential) {
-		Users user = this.authenticationService.login(credential);
-		return Helper.jacksonConvertObjToJSon(user);
+	public String login(Users user) {
+		Users loginUser = this.authenticationService.login(user);
+		return Helper.jacksonConvertObjToJSon(loginUser);
 	}
 	
 	@DELETE
 	@Path("/{userLoginId}")
-	public void deleteUser(@PathParam("userLoginId") String userLoginId){
+	public Response deleteUser(@PathParam("userLoginId") String userLoginId){
 		this.authenticationService.deleteUser(userLoginId);
+		return Response.status(Status.OK).build();
 	}
 }

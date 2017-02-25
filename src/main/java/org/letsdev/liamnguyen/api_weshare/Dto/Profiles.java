@@ -16,7 +16,6 @@ public class Profiles implements DtoObjectsInterface {
 	private Date updatedAt;
 	
 	public Profiles() {
-		this.createdAt = new Date();
 		this.userEmail = "";
 		this.userTwitter = "";
 		this.userFirstName = "";
