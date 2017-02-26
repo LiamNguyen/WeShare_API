@@ -41,8 +41,8 @@ public class ProfilesDAO {
 					+ "UserLastName = '" + profile.getUserLastName() +"', "
 					+ "UserEmail = '" + profile.getUserEmail() + "', "
 					+ "UserTwitter = '" + profile.getUserTwitter() + "', "
-					+ "UserPhone '" + profile.getUserPhone() + "' "
-					+ "UpdatedAt '" + Helper.getCurrentDate() + "' "
+					+ "UserPhone = '" + profile.getUserPhone() + "', "
+					+ "UpdatedAt = '" + Helper.getCurrentDate() + "' "
 				+ "Where UserId = '" + user.getUserId() + "'";
 		connection.executeQuery(sql);
 		selectProfile(user.getUserLoginId());
