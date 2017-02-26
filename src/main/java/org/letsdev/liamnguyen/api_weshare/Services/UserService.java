@@ -82,8 +82,9 @@ public class UserService {
 	}
 	
 	private Boolean userHasExisted(String userLoginId) {
-		this.userDao.selectUser(userLoginId);
+		this.userDao.checkUserExistence(userLoginId);
 		if (this.users.get(userLoginId) != null) {
+			this.users.remove(userLoginId);
 			return true;
 		}
 		return false;

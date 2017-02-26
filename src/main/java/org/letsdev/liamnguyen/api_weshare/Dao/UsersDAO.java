@@ -16,16 +16,26 @@ public class UsersDAO {
 	
 	public void selectAllUsers() {
 		connection.cnOpen();
-		String sql = "Select UserId, UserLoginId, UserPassword, SessionToken from wesharedb.tbl_users "
-				+ "where Active = 1";
+		String sql = "Select UserId, UserLoginId, UserPassword, SessionToken "
+				+ "From wesharedb.tbl_users "
+				+ "Where Active = 1";
 		ResultSet rs = connection.getSqlData(sql);
 		parseDataToDto(rs);
 	}
 	
 	public void selectUser(String userLoginId) {
 		connection.cnOpen();
-		String sql = "Select UserId, UserLoginId, UserPassword, SessionToken from wesharedb.tbl_users "
-				+ "where Active = 1";
+		String sql = "Select UserId, UserLoginId, UserPassword, SessionToken "
+				+ "From wesharedb.tbl_users "
+				+ "Where Active = 1";
+		ResultSet rs = connection.getSqlData(sql);
+		parseDataToDto(rs);
+	}
+	
+	public void checkUserExistence(String userLoginId) {
+		connection.cnOpen();
+		String sql = "Select UserId, UserLoginId, UserPassword, SessionToken "
+				+ "From wesharedb.tbl_users";
 		ResultSet rs = connection.getSqlData(sql);
 		parseDataToDto(rs);
 	}
