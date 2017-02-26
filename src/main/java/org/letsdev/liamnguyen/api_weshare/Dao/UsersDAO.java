@@ -32,14 +32,6 @@ public class UsersDAO {
 		parseDataToDto(rs);
 	}
 	
-	public void checkUserExistence(String userLoginId) {
-		connection.cnOpen();
-		String sql = "Select UserId, UserLoginId, UserPassword, SessionToken "
-				+ "From wesharedb.tbl_users";
-		ResultSet rs = connection.getSqlData(sql);
-		parseDataToDto(rs);
-	}
-	
 	public void insertUser(Users user) {
 		connection.cnOpen();
 		String sql = "Insert into wesharedb.tbl_users(UserLoginId, UserPassword, SessionToken) "

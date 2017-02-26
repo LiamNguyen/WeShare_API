@@ -1,15 +1,18 @@
 package org.letsdev.liamnguyen.api_weshare.Services;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+
+import javax.ws.rs.NotAuthorizedException;
 
 import org.letsdev.liamnguyen.api_weshare.Dao.ProfilesDAO;
 import org.letsdev.liamnguyen.api_weshare.DatabaseManager.Database;
 import org.letsdev.liamnguyen.api_weshare.Dto.Profiles;
 import org.letsdev.liamnguyen.api_weshare.Dto.Users;
 import org.letsdev.liamnguyen.api_weshare.Helper.Helper;
+import org.letsdev.liamnguyen.api_weshare.Locale.ErrorMessageManager;
+import org.letsdev.liamnguyen.api_weshare.Locale.ErrorMessages;
+import org.letsdev.liamnguyen.api_weshare.ResponseBuilder.ResponseBuilder;
 
 public class ProfileService {
 	
@@ -21,12 +24,14 @@ public class ProfileService {
 
 	}
 	
-	public List<Profiles> getAllUsers() {
-		return new ArrayList<Profiles>(this.profiles.values());
-	}
-	
 	public Profiles updateUserProfile(String sessionToken, Profiles profile) {
 		Users user = Helper.findUserFromToken(sessionToken);
+		
+		if (user == null) {			
+			ErrorMessageManager errorMessage = new ErrorMessageManager(ErrorMessages.UNAUTHORIZE, 401, ErrorMessages.LOGIN_DOCUMENTATION);
+			throw new NotAuthorizedException(ResponseBuilder.build(errorMessage, 401));
+		}
+		
 		Profiles updatedProfile = restrictIneditableFields(user, profile);
 		
 		this.profilesDao.updateProfile(updatedProfile, user);
@@ -36,6 +41,12 @@ public class ProfileService {
 	
 	public Profiles getUserProfile(String sessionToken) {
 		Users returnUser = Helper.findUserFromToken(sessionToken);
+		
+		if (returnUser == null) {			
+			ErrorMessageManager errorMessage = new ErrorMessageManager(ErrorMessages.UNAUTHORIZE, 401, ErrorMessages.LOGIN_DOCUMENTATION);
+			throw new NotAuthorizedException(ResponseBuilder.build(errorMessage, 401));
+		}
+		
 		return this.profiles.get(returnUser.getUserLoginId());
 	}
 	
