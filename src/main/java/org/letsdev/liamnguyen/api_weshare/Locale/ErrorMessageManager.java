@@ -6,29 +6,29 @@ import org.letsdev.liamnguyen.api_weshare.Interfaces.ResponseEntity;
 
 @XmlRootElement
 public class ErrorMessageManager implements ResponseEntity {
-	private String errorMessage;
+	private String message;
 	private int statusCode;
 	private String documentation;
 	
 	public ErrorMessageManager() {
 	}
 	
-	public ErrorMessageManager(String errorMessage, int statusCode) {
-		this.errorMessage = errorMessage;
+	public ErrorMessageManager(String message, int statusCode) {
+		this.message = message;
 		this.statusCode = statusCode;
 		this.documentation = "http://weshare-api.documentation.com";
 	}
 	
-	public ErrorMessageManager(String errorMessage, int statusCode, String documentation) {
-		this(errorMessage, statusCode);
+	public ErrorMessageManager(String message, int statusCode, String documentation) {
+		this(message, statusCode);
 		this.documentation = documentation;
 	}
 	
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getmessage() {
+		return message;
 	}
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+	public void setmessage(String message) {
+		this.message = message;
 	}
 	public int getStatusCode() {
 		return statusCode;

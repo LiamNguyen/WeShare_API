@@ -75,6 +75,11 @@ public class UserService {
 	}
 	
 	public void deleteUser(String userLoginId) {
+		Users user = Helper.findUserFromUserLoginId(userLoginId);
+		if (user == null) {
+			ErrorMessageManager errorMessage = new ErrorMessageManager(ErrorMessages.USER_NOT_FOUND, 404);
+			throw new NotFoundException(ResponseBuilder.build(errorMessage, 404));
+		}
 		this.userDao.deleteUser(userLoginId);
 		this.users.remove(userLoginId);
 	}

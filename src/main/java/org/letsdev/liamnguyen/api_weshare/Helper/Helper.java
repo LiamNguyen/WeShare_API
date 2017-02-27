@@ -64,7 +64,7 @@ public class Helper {
 	}
 	
 	public static Users findUserFromUserLoginId(String userLoginId) {
-		Users returnUser = new Users();
+		Users returnUser = null;
 		List<Users> allUser = new ArrayList<Users>(users.values());
 		for (Users user: allUser) {
 			if (user.getUserLoginId().equals(userLoginId)) {

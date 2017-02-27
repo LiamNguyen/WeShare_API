@@ -10,4 +10,5 @@ public class ErrorMessages {
 	public static String REGISTER_DOCUMENTATION = "http://localhost:8080/api-weshare/webapi/user/register";
 	public static String UNAUTHORIZE = "Invalid authorization token. Please login first to get session token";
 	public static String LOGIN_DOCUMENTATION = "http://localhost:8080/api-weshare/webapi/user/login";
+	public static String DELETE_USER_SUCCESSFULLY = "Deleted user successfully";
 }

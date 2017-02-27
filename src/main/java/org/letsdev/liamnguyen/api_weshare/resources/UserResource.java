@@ -11,10 +11,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.letsdev.liamnguyen.api_weshare.Dto.Users;
 import org.letsdev.liamnguyen.api_weshare.Helper.Helper;
+import org.letsdev.liamnguyen.api_weshare.Locale.ErrorMessageManager;
+import org.letsdev.liamnguyen.api_weshare.Locale.ErrorMessages;
+import org.letsdev.liamnguyen.api_weshare.ResponseBuilder.ResponseBuilder;
 import org.letsdev.liamnguyen.api_weshare.Services.UserService;
 
 @Path("user")
@@ -52,6 +54,7 @@ public class UserResource {
 	@Path("/{userLoginId}")
 	public Response deleteUser(@PathParam("userLoginId") String userLoginId){
 		this.authenticationService.deleteUser(userLoginId);
-		return Response.status(Status.OK).build();
+		ErrorMessageManager errorMessage = new ErrorMessageManager(ErrorMessages.DELETE_USER_SUCCESSFULLY, 200);
+		return ResponseBuilder.build(errorMessage, 200);
 	}
 }
